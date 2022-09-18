@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:interview_upskill/view/splash.screen.dart';
+import 'package:get/get_connect/http/src/multipart/form_data.dart' as fd;
 
 void main() {
+
   runApp(const MyApp());
 }
 

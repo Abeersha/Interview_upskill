@@ -6,7 +6,7 @@ class TextFormGlobal extends StatelessWidget {
       required this.controller,
       required this.text,
       required this.textInputType,
-      required this.obscure})
+       this.obscure = false})
       : super(key: key);
 
   final TextEditingController controller;
@@ -31,7 +31,7 @@ class TextFormGlobal extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.emailAddress,
-        obscureText: true,
+        obscureText: obscure,
         decoration: InputDecoration(
             hintText: text,
             border: InputBorder.none,

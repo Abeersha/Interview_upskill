@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:interview_upskill/constants/global_colors.dart';
 import 'package:interview_upskill/view/home.posts.dart';
 import 'package:interview_upskill/view/login.view.dart';
+import 'package:interview_upskill/view/signup.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

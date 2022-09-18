@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:interview_upskill/Service/local.storage.dart';
 import 'package:interview_upskill/constants/global_colors.dart';
+import 'package:interview_upskill/view/Interviewe.profile.dart';
 import 'package:interview_upskill/view/homepage.dart';
 import 'package:interview_upskill/view/interviwer.profile.dart';
 
@@ -7,8 +9,6 @@ import 'package:interview_upskill/view/messages.dart';
 
 import 'package:interview_upskill/view/search.dart';
 import 'package:interview_upskill/view/share.post.dart';
-
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,13 +26,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final List<Widget> _children = [
-    HomePage2(),
-    MessagePage(),
-    SharePosts(),
-    SearchPage(),
-    InterviewerProfile(),
-  ];
+  bool a = true;
+
+  List<Widget> _children = [];
+
+  @override
+  void initState() {
+    bool isINterviewer = GetLocalStorage.getUserInformation("interviewer");
+
+    _children = [
+      HomePage2(),
+      MessagePage(),
+      SharePosts(),
+      SearchPage(),
+      isINterviewer ? InterviewerProfile() : IntervieweeProfile(),
+    ];
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
