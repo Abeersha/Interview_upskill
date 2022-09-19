@@ -74,7 +74,6 @@ class SharePosts extends StatelessWidget {
 
                 return Stack(
                   children: [
-                    
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.amber,
@@ -91,8 +90,7 @@ class SharePosts extends StatelessWidget {
                       right: 5,
                       top: 5,
                       child: IconButton(
-                        onPressed: () 
-                        {
+                        onPressed: () {
                           controller.removeImage();
                         },
                         icon: Icon(Icons.close),

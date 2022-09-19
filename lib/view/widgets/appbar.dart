@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:interview_upskill/constants/global_colors.dart';
 
@@ -8,6 +10,12 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
+
     return Container(
       height: 50,
       color: GlobalColors.mainColor,
@@ -18,14 +26,11 @@ class CustomAppBar extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 180),
             child: Center(
-                child: Text(
-              pageName,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              child: Text(
+                pageName,
+                style: textStyle,
               ),
-            )),
+            ),
           ),
         ],
       ),
