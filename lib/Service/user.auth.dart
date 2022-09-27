@@ -27,6 +27,8 @@ class UserAuthService {
 
       Map<String, dynamic>? userResponse = logResponse['user'];
 
+      // print(userResponse);
+
       if (userResponse != null) {
         Map<String, dynamic> user = {
           "uId": userResponse['_id'],
@@ -35,7 +37,6 @@ class UserAuthService {
           "name": userResponse['name'],
           "interviewer": userResponse['interviewer'],
         };
-        
 
         GetLocalStorage.saveUserInformations(user);
 
@@ -59,18 +60,14 @@ class UserAuthService {
 
   static Future signUpUser(Map<String, dynamic> signUpPayload) async {
     Map<String, dynamic> headers = {};
+    print(signUpPayload);
 
     try {
       final response = await dio.post(
         "/registration",
         data: signUpPayload,
-        options: Options(
-          followRedirects: false,
-          headers: headers,
-        ),
       );
 
-     
       Map<String, dynamic> logResponse = response.data;
 
       Map<String, dynamic>? userResponse = logResponse['user'];
@@ -89,18 +86,18 @@ class UserAuthService {
 
         // GetLocalStorage.saveUserInformations(user);
 
-        loginUser(email: signUpPayload['email'], password: signUpPayload['password']);
+        loginUser(
+            email: signUpPayload['email'], password: signUpPayload['password']);
 
         // Get.offAll(HomePage());
       } else {
+        
         Get.snackbar(
           'Warning',
           logResponse['message'],
           backgroundColor: Colors.blue,
         );
       }
-
-
     } on DioError catch (e) {
       print('errrrrorrr');
       print(e.response?.statusMessage);

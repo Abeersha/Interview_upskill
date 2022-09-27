@@ -4,9 +4,7 @@ import 'package:interview_upskill/constants/global_colors.dart';
 import 'package:interview_upskill/view/Interviewe.profile.dart';
 import 'package:interview_upskill/view/homepage.dart';
 import 'package:interview_upskill/view/interviwer.profile.dart';
-
 import 'package:interview_upskill/view/messages.dart';
-
 import 'package:interview_upskill/view/search.dart';
 import 'package:interview_upskill/view/share.post.dart';
 

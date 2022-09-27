@@ -1,30 +1,41 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
-import 'package:interview_upskill/Service/local.storage.dart';
+import 'package:interview_upskill/Controller/loginController.dart';
 import 'package:interview_upskill/Service/user.auth.dart';
 
 import 'package:interview_upskill/constants/constants.dart';
 import 'package:interview_upskill/constants/global_colors.dart';
-import 'package:interview_upskill/view/button.global.dart';
 import 'package:interview_upskill/view/home.posts.dart';
 import 'package:interview_upskill/view/homepage.dart';
-import 'package:interview_upskill/view/messages.dart';
 import 'package:interview_upskill/view/signup.dart';
 
 import 'package:interview_upskill/view/text.form.global.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   LoginView({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+//
+class _LoginViewState extends State<LoginView> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
+  LoginController loginContoller = Get.put(LoginController());
+
+  // final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    emailController.text = "mansoor@gmail.com";
-    passwordController.text = "111111";
+
 
     return Scaffold(
       body: SafeArea(
@@ -57,38 +68,67 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
                       kheight30,
-                      TextFormGlobal(
-                        controller: emailController,
-                        obscure: false,
-                        text: 'Email',
-                        textInputType: TextInputType.emailAddress,
+                      Form(
+                        key: loginContoller.loginFormKey,
+                        child: Column(children: [
+                          TextFormField(
+                            focusNode: FocusNode(),
+                            validator: (email) {
+                              return loginContoller.validateEmail(email!);
+                            },
+                            controller: loginContoller.emailController,
+                            obscureText: false,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              hintText: 'Your email',
+                              labelText: 'Email',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                          ),
+                          kheight30,
+                          TextFormField(
+                            focusNode: FocusNode(),
+                            validator: (password) {
+                              return loginContoller.validatePassword(password!);
+                            },
+                            controller: loginContoller.passwordController,
+                            obscureText: true,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              hintText: 'Your password',
+                              labelText: 'Password',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                          ),
+                        ]),
                       ),
-                      kheight30,
-                      TextFormGlobal(
-                          controller: passwordController,
-                          text: 'Password',
-                          textInputType: TextInputType.text,
-                          obscure: false),
-                      // ButtonGlobal(text: 'SIGN IN'),
+                      kheight20,
                       ElevatedButton(
                           onPressed: () {
-                             UserAuthService.loginUser(email: emailController.text, password: passwordController.text);
-                          //  print(GetLocalStorage.getUserInformation("email"));
-                             Get.to(HomePage());
+                            print("hgfhfyjyftyjgggggggg");
+                            // if (_formkey.currentState!.validate() == false) {
+                            //   print("The form submitted");
+                            // } else {
+
+                            //   // Get.to(HomePage());
+                            // }
+
+                            loginContoller.checkLogin();
                           },
                           child: Text(
                             'SIGN IN',
                           )),
-        
                       kheight30,
-                      const Text('-OR- '),
+                      const Text(''),
                       kheight20,
                       InkWell(
                         onTap: () {
                           Get.to(HomePage2());
                         },
                         child: const Text(
-                          'Login with OTP',
+                          '',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -106,7 +146,7 @@ class LoginView extends StatelessWidget {
                                 TextSpan(
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Get.to(SignUp());
+                                        Get.to(SignUpPage());
                                       },
                                     text: 'SignUp',
                                     style: TextStyle(

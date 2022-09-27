@@ -5,8 +5,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 class Onboard extends StatelessWidget {
   const Onboard({Key? key}) : super(key: key);
 
- 
-
   @override
 Widget build(BuildContext context) => SafeArea(child: IntroductionScreen(
 pages: [

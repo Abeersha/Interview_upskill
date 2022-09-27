@@ -6,6 +6,7 @@ ProfileModel({
   this.email,
   this.phone,
   this.password,
+  this.profileImage,
 });
 
 String? id;
@@ -13,6 +14,7 @@ String? name;
 String?email;
 int? phone;
 String? password;
+String? profileImage;
 
 
 factory ProfileModel.fromJson(Map<String,dynamic> json) => ProfileModel(
@@ -20,7 +22,7 @@ factory ProfileModel.fromJson(Map<String,dynamic> json) => ProfileModel(
   name:json["name"],
   email:json["email"],
   phone: json["phone"],
-  password: json["password"]
+  password: json["password"],
 );
 
 Map<String,dynamic> toJson()=>{

@@ -4,12 +4,11 @@ import 'package:interview_upskill/constants/constants.dart';
 import 'package:interview_upskill/view/Interviewe.profile.dart';
 import 'package:interview_upskill/view/dashboard.dart';
 import 'package:interview_upskill/view/homepage.dart';
-
 import 'package:interview_upskill/view/profileLine.dart';
 import 'package:interview_upskill/view/request.interviewer1.dart';
 import 'package:interview_upskill/view/search.dart';
 import 'package:interview_upskill/view/upcoming2.dart';
-
+import 'package:interview_upskill/view/widgets/editprofile.dart';
 import '../constants/global_colors.dart';
 
 class InterviewerProfile extends StatelessWidget {
@@ -23,6 +22,21 @@ class InterviewerProfile extends StatelessWidget {
           leading: Icon(Icons.arrow_back),
           title: Text('Account'),
           centerTitle: true,
+          actions: [
+            PopupMenuButton(
+                onSelected: (value) {
+                  if (value == 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProfile(),
+                      ),
+                    );
+                  }
+                },
+                itemBuilder: (context) =>
+                    [PopupMenuItem(value: 0, child: Text('Edit Profile'))])
+          ],
         ),
         body: Container(
             child: Column(
@@ -81,10 +95,11 @@ class InterviewerProfile extends StatelessWidget {
                 },
                 child: ProfileLine(text: 'Upcoming')),
             kheight10,
-            InkWell( onTap: () {
+            InkWell(
+                onTap: () {
                   Get.to(IntervieweeProfile());
                 },
-              child: ProfileLine(text: 'Logout')),
+                child: ProfileLine(text: 'Logout')),
           ],
         )));
   }

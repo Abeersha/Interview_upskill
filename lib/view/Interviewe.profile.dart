@@ -11,6 +11,7 @@ import 'package:interview_upskill/view/pendingrequests.dart';
 import 'package:interview_upskill/view/profileLine.dart';
 import 'package:interview_upskill/view/search.dart';
 import 'package:interview_upskill/view/upcoming1.dart';
+import 'package:interview_upskill/view/widgets/editprofile.dart';
 
 import '../constants/global_colors.dart';
 
@@ -25,6 +26,25 @@ class IntervieweeProfile extends StatelessWidget {
           leading: Icon(Icons.arrow_back),
           title: Text('Account'),
           centerTitle: true,
+          actions: [
+            PopupMenuButton(
+              onSelected: (value) {
+                  if (value == 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProfile(),
+                      ),
+                    );
+                  }
+                },
+                itemBuilder: (context) => [
+                      PopupMenuItem(
+                          child: Text('Edit Profile'),
+                          value: 0,
+                         ),
+                    ])
+          ],
         ),
         body: Container(
             child: Column(
@@ -35,7 +55,6 @@ class IntervieweeProfile extends StatelessWidget {
               child: CircleAvatar(
                 backgroundImage: AssetImage('assets/profile1.jpg'),
                 radius: 80,
-          
               ),
             )),
             Padding(
@@ -50,28 +69,47 @@ class IntervieweeProfile extends StatelessWidget {
               style: TextStyle(),
             ),
             kheight20,
-            InkWell(onTap: (){Get.to(HomePage2());},
-              child: ProfileLine(text: 'Posts')),
+            InkWell(
+                onTap: () {
+                  Get.to(HomePage2());
+                },
+                child: ProfileLine(text: 'Posts')),
             kheight10,
-            InkWell(onTap: (){Get.to(SearchPage());},
-              child: ProfileLine(text: 'Networks')),
+            InkWell(
+                onTap: () {
+                  Get.to(SearchPage());
+                },
+                child: ProfileLine(text: 'Networks')),
             kheight10,
-            InkWell(onTap: (){Get.to(MyInterviews());},
-              child: ProfileLine(text: 'My Interviews')),
+            InkWell(
+                onTap: () {
+                  Get.to(MyInterviews());
+                },
+                child: ProfileLine(text: 'My Interviews')),
             kheight10,
-            InkWell(onTap: (){Get.to(pendingRequests());},
-              child: ProfileLine(text: 'Pending requests')),
+            InkWell(
+                onTap: () {
+                  Get.to(pendingRequests());
+                },
+                child: ProfileLine(text: 'Pending requests')),
             kheight10,
-            InkWell(onTap: (){Get.to(NotificationInterviewee());},
-              child: ProfileLine(text: 'Notifications')),
+            InkWell(
+                onTap: () {
+                  Get.to(NotificationInterviewee());
+                },
+                child: ProfileLine(text: 'Notifications')),
             kheight10,
-            InkWell(onTap: (){Get.to(upcoming1());},
-              child: ProfileLine(text: 'Upcoming')),
+            InkWell(
+                onTap: () {
+                  Get.to(upcoming1());
+                },
+                child: ProfileLine(text: 'Upcoming')),
             kheight10,
-            InkWell( onTap: () {
+            InkWell(
+                onTap: () {
                   Get.to(InterviewerProfile());
                 },
-              child: ProfileLine(text: 'Logout')),
+                child: ProfileLine(text: 'Logout')),
           ],
         )));
   }

@@ -13,7 +13,7 @@ class GetLocalStorage {
   static dynamic getUserInformation(String key) {
     Map<String, dynamic>? user = storage.read<Map<String, dynamic>>("user");
 
-    // print(user?[key]);  
+    
 
     return user?[key];
   }

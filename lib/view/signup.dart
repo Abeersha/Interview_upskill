@@ -1,43 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+
 import 'package:interview_upskill/Controller/sign_up_controller.dart';
+
 import 'package:interview_upskill/Service/user.auth.dart';
 import 'package:interview_upskill/constants/constants.dart';
 import 'package:interview_upskill/model/SignUp.model.dart';
 import 'package:interview_upskill/view/button.global.dart';
-import 'package:interview_upskill/view/home.posts.dart';
-import 'package:interview_upskill/view/homepage.dart';
-import 'package:interview_upskill/view/messages.dart';
-import 'package:interview_upskill/view/text.form.global.dart';
 
-class SignUp extends StatelessWidget {
-  SignUp({Key? key}) : super(key: key);
+import '../Controller/sign_up_controller.dart';
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phonenumberController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+// ignore: must_be_immutable
+class SignUpPage extends StatelessWidget {
+  SignUpPage({Key? key}) : super(key: key);
+
+ 
 
   @override
   Widget build(BuildContext context) {
-
-  nameController.text = "Albert";
-  phonenumberController.text = "7306729476";
-  emailController.text= "albert@gmail.com";
-  passwordController.text = "111111";
-  
-
-
-
-
+    
+    SignupController signupController = Get.put(SignupController());
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              // color: Colors.white,
+         
 
               width: double.infinity,
 
@@ -48,48 +37,102 @@ class SignUp extends StatelessWidget {
                     'Sign Up',
                     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                   ),
-                  // kheight10,
-                  // CircleAvatar(
-                  //   radius: 70,
-                  // ),
+
                   kheight50,
-                  TextFormGlobal(
-                    controller: nameController,
-                    text: 'Name',
-                    textInputType: TextInputType.text,
+
+                  kheight20,
+
+                  Form(
+                    key: signupController.SignUpFormKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          focusNode: FocusNode(),
+                          validator: (name) {
+                            return signupController.validateUsername(name!);
+                          },
+                          controller: signupController.nameController,
+                          obscureText: false,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Your name',
+                            labelText: 'Name',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                        ),
+                        kheight20,
+                        TextFormField(
+                          focusNode: FocusNode(),
+                          validator: (email) {
+                            return signupController.validateEmail(email!);
+                          },
+                          controller: signupController.emailController,
+                          obscureText: false,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Your Email',
+                            labelText: 'Email',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                        ),
+                        kheight20,
+                        TextFormField(
+                          focusNode: FocusNode(),
+                          validator: (mobile) {
+                            return signupController.validateMobile(mobile!);
+                          },
+                          controller: signupController.phonenumberController,
+                          obscureText: false,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Your Mobile',
+                            labelText: 'Mobile',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                        ),
+                        kheight20,
+                        TextFormField(
+                          focusNode: FocusNode(),
+                          validator: (password) {
+                            return signupController.validatePassword(password!);
+                          },
+                          controller: signupController.passwordController,
+                          obscureText: true,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                            labelText: 'Password',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                        ),
+                        kheight20,
+                        TextFormField(
+                          focusNode: FocusNode(),
+                          validator: (cPassword) {
+                            return signupController
+                                .validateConfirmPassword(cPassword!);
+                          },
+                          controller: signupController.cPasswordController,
+                          obscureText: true,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Confirm Password',
+                            labelText: 'Confirm Password',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  kheight20,
-                  TextFormGlobal(
-                    controller: emailController,
-                    text: 'Email',
-                    textInputType: TextInputType.emailAddress,
-                  ),
-                  kheight20,
-                  TextFormGlobal(
-                    controller: phonenumberController,
-                    text: 'Mobile',
-                    textInputType: TextInputType.text,
-                  ),
-                  kheight20,
-                  TextFormGlobal(
-                      controller: passwordController,
-                      text: 'Password',
-                      textInputType: TextInputType.text,
-                      obscure: true),
-                  kheight20,
-                  TextFormGlobal(
-                      controller: passwordController,
-                      text: 'Confirm Password',
-                      textInputType: TextInputType.text,
-                      obscure: true),
                   kheight20,
                   GetBuilder<SignupController>(
                       init: SignupController(),
                       builder: (controller) {
-                        List<String> items = ["item 1", "item 2", "item 3"];
-
-                        String? item;
-
                         return Column(
                           children: [
                             SwitchListTile(
@@ -169,28 +212,32 @@ class SignUp extends StatelessWidget {
                       onTap: isButtonDisabled
                           ? null
                           : () {
-                              print("tappped");
-                              Map<String, dynamic> signUpPayload =
-                                  SignUpPayloadModel(
-                                confirmPassword: passwordController.text,
-                                email: emailController.text,
-                                experience: controller.dropdownValue,
-                                interviewer: controller.switchValue,
-                                name: nameController.text,
-                                password: passwordController.text,
-                                phone: phonenumberController.text,
-                              ).toJson();
+                              bool isValid = controller
+                                  .SignUpFormKey.currentState!
+                                  .validate();
 
-                              if (signUpPayload['experience'] == null) {
-                                signUpPayload.remove("experience");
+                              if (isValid) {
+                                print("tappped");
+                                Map<String, dynamic> signUpPayload =
+                                    SignUpPayloadModel(
+                                  confirmPassword:
+                                      controller.cPasswordController.text,
+                                  email: controller.emailController.text,
+                                  experience: controller.dropdownValue,
+                                  interviewer: controller.switchValue,
+                                  name: controller.nameController.text,
+                                  password: controller.passwordController.text,
+                                  phone: controller.phonenumberController.text,
+                                ).toJson();
+
+                                if (signUpPayload['experience'] == null) {
+                                  signUpPayload.remove("experience");
+                                }
+
+                                print("tapped");
+
+                                UserAuthService.signUpUser(signUpPayload);
                               }
-
-                              print("tapped");
-
-                              UserAuthService.signUpUser(signUpPayload);
-
-     
-
                             },
                       bgColor: isButtonDisabled ? Colors.grey : null,
                     );
